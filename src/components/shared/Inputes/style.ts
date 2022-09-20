@@ -28,4 +28,8 @@ font-size:17px;
 @media screen and (min-width: 801px) and (max-width: 950px) {
     height:${(props:StylePropsType)=>props.page === 'Signup'?"80%":'95%'}
 }
+&::-ms-reveal,
+&::-ms-clear {
+    display: none;
+  }
 `

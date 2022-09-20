@@ -22,7 +22,7 @@ const routesConfig = [
     path: PROFILE_ROUTE,
     component: <Profile />,
     exact: true,
-    privateRoute: false,
+    privateRoute: true,
   },
   {
     path: LOGIN_ROUTE,
@@ -43,7 +43,7 @@ const App = ()=>{
   // };
 
   const protectedRoute = (component: ReactNode, privateRoute: boolean) => {
-    const isUserLogged = localStorage.getItem("isLogged");
+    const isUserLogged = localStorage.getItem("authToken");
     const isValidRoute =
       (privateRoute && isUserLogged) || !(privateRoute || isUserLogged);
       

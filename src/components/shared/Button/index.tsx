@@ -2,11 +2,14 @@ import React from 'react'
 import { CustomButton } from './style'
 
 interface PropsType{
-  page:string
+  page:string,
+  type:"submit"|"reset"|"button"
 }
 const Button = (props:PropsType)=>{
+
+ 
   return (
-   <CustomButton>{props.page}</CustomButton>
+   <CustomButton type={props.type}>{props.page}</CustomButton>
   )
 }
 

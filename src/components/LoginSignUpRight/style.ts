@@ -7,6 +7,9 @@ interface StylePropsType {
 interface AnchorPropsType {
     variant: string;
 }
+export const Error = styled.p`
+color:red
+`
 export const Container = styled.div`
 width:40%;
 height:100%;
@@ -76,11 +79,42 @@ height:${(props: StylePropsType) => props.page === 'Signup' ? "23%" : '29%'};
 border: 1px solid #F1F1FA;
 border-radius: 14px;
 margin: 20px 0px;
+align-self: center;
 @media screen and (orientation:portrait)
 {
     width:90%;
     margin:10px 0px;
 }
+`
+export const InputTag = styled.input`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 8px 16px;
+gap: 10px;
+width:81%;
+height:${(props:StylePropsType)=>props.page === 'Signup'?"70%":"85%"};
+border:none;
+font-size:17px;
+&:focus {
+    outline: none;
+}
+@media screen and (orientation:portrait)
+{
+    height: ${(props:StylePropsType)=>props.page === 'Signup'?"75%":'90%'};
+    width: 85%;
+    font-size:12px;
+    padding:4px 8px;
+    border-radius:8px;
+}
+@media screen and (min-width: 801px) and (max-width: 950px) {
+    height:${(props:StylePropsType)=>props.page === 'Signup'?"80%":'95%'}
+}
+&::-ms-reveal,
+&::-ms-clear {
+    display: none;
+  }
 `
 export const EyeContainer = styled.div`
 display:flex;

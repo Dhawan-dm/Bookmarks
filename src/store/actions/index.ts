@@ -1,18 +1,31 @@
 import { Actions } from '../actionTypes/index'
+import { LoginDataType, SignUpDataType } from '../reducer/userAuth/type'
 
-export interface inputType {
-    name: string,
-    userId: string,
-    password: string
-}
-
-export const signUp = (e: inputType) => {
+export const signUpRequest = (e: SignUpDataType) => {
     return {
-        type: Actions.SIGN_UP,
-        payload: {
-            name: e.name,
-            userId: e.userId,
-            password: e.password,
-        }
+        type: Actions.SIGN_UP_REQUEST,
+        payload: e
     }
 }
+
+export const signUpSuccess = (e: SignUpDataType) => {
+    return {
+        type:Actions.SIGN_UP_SUCCESS,
+        payload:e
+    }
+}
+
+export const loginRequest = (e: LoginDataType) => {
+    return {
+        type: Actions.LOGIN_REQUEST,
+        payload: e
+    }
+}
+
+export const loginSuccess = (e: LoginDataType) => {
+    return {
+        type: Actions.LOGIN_REQUEST,
+        payload: e
+    }
+}
+
