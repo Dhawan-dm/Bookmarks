@@ -14,14 +14,14 @@ interface signupType {
 
 const Signup = (props: signupType)=>{
 
-    const handleSubmit = ( email:string, password:string, name?:string,) =>{
+    const handleSubmit = (email:string, password:string, name:string) =>{
         props.addUser({name:name, email:email, password:password})
     } 
 
     return (
         <Wrapper>
             <LoginSignUpLeft page = {'Signup'}></LoginSignUpLeft>
-            <LoginSignUpRight page = {'Signup'} onSubmit={(email:string, password:string, name?:string)=>handleSubmit(
+            <LoginSignUpRight page = {'Signup'} onSubmit={(email:string, password:string, name:string)=>handleSubmit(
                 email, password, name)}></LoginSignUpRight>
         </Wrapper>
     )

@@ -6,7 +6,7 @@ export interface LoginDataType{
 }
 
 export interface SignUpDataType {
-    name?: string,
+    name: string,
     email: string,
     password: string
 }

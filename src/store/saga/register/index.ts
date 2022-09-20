@@ -6,7 +6,7 @@ import { actionTypes } from '../../reducer/userAuth/type';
 
 function* workerSaga(action:actionTypes):any{
     try {
-        let data = yield apiData(action.payload, "register", "post")
+        let data = yield apiData( "register", "post", action.payload)
         console.log(data);
         if("token" in data){
             yield put(signUpSuccess(data));

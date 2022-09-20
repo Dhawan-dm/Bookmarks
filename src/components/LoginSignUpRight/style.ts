@@ -1,12 +1,17 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface StylePropsType {
     page: string;
 }
+interface ErrorPropsType{
+    err: string;
+}
 interface AnchorPropsType {
     variant: string;
 }
+
 export const Error = styled.p`
 color:red
 `
@@ -78,8 +83,8 @@ width:100%;
 height:${(props: StylePropsType) => props.page === 'Signup' ? "23%" : '29%'};
 border: 1px solid #F1F1FA;
 border-radius: 14px;
-margin: 20px 0px;
 align-self: center;
+margin:20px 0px;
 @media screen and (orientation:portrait)
 {
     width:90%;
@@ -115,6 +120,45 @@ font-size:17px;
 &::-ms-clear {
     display: none;
   }
+`
+export const Err = styled.div`
+display:${(props:ErrorPropsType)=>props.err==="yes"?"block":"none"};
+color:red;
+font-size:12px;
+position:relative;
+top:100%;
+right:80%;`
+
+export const SubmitButton = styled.button`
+width:100%;
+background: #5352ED;
+height:15%;
+font-size:20px;
+color:white;
+border-radius:14px;
+border:none;
+@media screen and (orientation:portrait)
+{
+    height:10%;
+    font-size:12px;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+@media screen and (min-width:500px)
+{
+    font-size:100%;
+    border-radius:10px;
+}
+@media screen and (min-width: 701px) and (max-width: 900px) and (orientation:potrait){
+     height:8%;
+}
+@media screen and (min-width: 901px) and (max-width: 950px) and (orientation:potrait) {
+    height:7%
+}
+@media screen and (min-width: 501px) and (max-width: 700px) {
+    height:12%
+}
 `
 export const EyeContainer = styled.div`
 display:flex;

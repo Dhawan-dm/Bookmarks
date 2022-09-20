@@ -7,7 +7,6 @@ interface PropsType{
 }
 const Button = (props:PropsType)=>{
 
- 
   return (
    <CustomButton type={props.type}>{props.page}</CustomButton>
   )

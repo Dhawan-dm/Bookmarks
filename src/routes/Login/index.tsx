@@ -15,12 +15,13 @@ interface PropsType{
 const Login = (props:PropsType)=>{
 
   const handleSubmit = (email:string, password:string) =>{
-    props.logUser({email: email, password:password});
+    props.logUser({email: email, password: password});
   } 
+  
   return (
     <Wrapper>
       <LoginSignUpLeft page = {'Login'} ></LoginSignUpLeft>
-      <LoginSignUpRight page = {'Login'} onSubmit={( email:string, password:string)=>handleSubmit(email, password)}></LoginSignUpRight>
+      <LoginSignUpRight page = {'Login'} onSubmit={( name:string, email:string, password:string)=>handleSubmit(email, password)}></LoginSignUpRight>
     </Wrapper>
   )
 }

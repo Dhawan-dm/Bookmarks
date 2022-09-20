@@ -6,12 +6,11 @@ import { actionTypes} from '../../reducer/userAuth/type';
 
 function* workerSaga(action:actionTypes):any{
     try {
-        let data = yield apiData(action.payload, "login", "post")
+        let data = yield apiData( "login", "post", action.payload)
         console.log(data);
         if("token" in data){
             yield put(loginSuccess(data));
             localStorage.setItem("authToken",JSON.stringify(data.token))
-            // window.location.replace("/profile");
         }
         
     } catch (error) {
