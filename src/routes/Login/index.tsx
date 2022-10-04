@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+
 import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 import LoginSignUpLeft from '../../components/LoginSignUpLeft'
 import LoginSignUpRight from '../../components/LoginSignUpRight'
 import { loginRequest } from '../../store/actions'
@@ -13,9 +14,9 @@ interface PropsType{
 }
 
 const Login = (props:PropsType)=>{
-
+  const navigate = useNavigate();
   const handleSubmit = (email:string, password:string) =>{
-    props.logUser({email: email, password: password});
+    props.logUser({email: email, password: password, navigate:navigate});
   } 
   
   return (

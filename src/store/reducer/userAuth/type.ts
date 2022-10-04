@@ -1,8 +1,10 @@
+import { NavigateFunction } from "react-router-dom";
 import { loginRequest, signUpRequest } from "../../actions";
 
 export interface LoginDataType{
     email:string,
     password:string
+    navigate:NavigateFunction
 }
 
 export interface SignUpDataType {

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import {
   BrowserRouter as Router,
   Navigate,
@@ -5,11 +7,12 @@ import {
   Routes,
 } from "react-router-dom";
 import { v4 as uuid } from "uuid"
+
 import Signup from './Signup/index'
 import Profile from "./Profile/index";
-import { ROOT_ROUTE, PROFILE_ROUTE, LOGIN_ROUTE } from "../utils/routeConstants"
-import { ReactNode } from "react";
+import { ROOT_ROUTE, PROFILE_ROUTE, LOGIN_ROUTE, DASHBOARD_ROUTE } from "../utils/routeConstants"
 import Login from "./Login";
+import DashBoard from "./DashBoard";
 
 const routesConfig = [
   {
@@ -30,6 +33,12 @@ const routesConfig = [
     exact: true,
     privateRoute: false,
   },
+  {
+    path: DASHBOARD_ROUTE,
+    component: <DashBoard />,
+    exact: true,
+    privateRoute: true,
+  },
 ]
 const App = ()=>{
 
@@ -49,7 +58,7 @@ const App = ()=>{
       
     if (isValidRoute)
       return component
-    return <Navigate to={privateRoute ? ROOT_ROUTE : PROFILE_ROUTE} />
+    return <Navigate to={privateRoute ? ROOT_ROUTE : DASHBOARD_ROUTE} />
   }
 
 

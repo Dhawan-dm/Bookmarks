@@ -1,4 +1,5 @@
 import { put, takeEvery } from "redux-saga/effects";
+
 import { apiData } from "../../../../utils/services";
 import { addFolderSuccess } from "../../../actions";
 import { Actions } from "../../../actionTypes";
@@ -9,7 +10,6 @@ function* workerSaga(action:actionTypes):any{
         let data = yield apiData( "folder", "post", action.payload)
         console.log(data);
         yield put(addFolderSuccess(data));
-        
     } catch (error) {
         
     }

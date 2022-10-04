@@ -8,12 +8,11 @@ const initialState: UserArray = {
 
 const authReducer = (state = initialState, action: actionTypes) => {
     switch (action.type) {
-        case Actions.SIGN_UP_SUCCESS: {
-            return { ...state, users: [action.payload, ...state.users] }
-        }
-    
-        case Actions.LOGIN_SUCCESS: {
-            return { ...state, users: [action.payload, ...state.users] }
+        
+        case Actions.GET_ME_SUCCESS:{
+            console.log(action.payload);
+        
+            return {...state, users: [...state.users, action.payload]}
         }
         default:
             return state

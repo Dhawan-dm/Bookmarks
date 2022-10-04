@@ -1,9 +1,9 @@
-import "./style.ts"
-import { connect } from 'react-redux';
-import React, { useState } from 'react'
 import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+
 import { signUpRequest } from '../../store/actions';
-import {Wrapper} from './style'
+import { Wrapper } from './style'
+import "./style.ts"
 import LoginSignUpRight from "../../components/LoginSignUpRight";
 import LoginSignUpLeft from "../../components/LoginSignUpLeft/index";
 import { SignUpDataType } from "../../store/reducer/userAuth/type";
@@ -21,7 +21,7 @@ const Signup = (props: signupType)=>{
     return (
         <Wrapper>
             <LoginSignUpLeft page = {'Signup'}></LoginSignUpLeft>
-            <LoginSignUpRight page = {'Signup'} onSubmit={(email:string, password:string, name:string)=>handleSubmit(
+            <LoginSignUpRight page = {'Sign Up'} onSubmit={(email:string, password:string, name:string)=>handleSubmit(
                 email, password, name)}></LoginSignUpRight>
         </Wrapper>
     )

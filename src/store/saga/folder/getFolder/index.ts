@@ -6,9 +6,7 @@ import { Actions } from "../../../actionTypes";
 function* workerSaga():any{
     try {
         let data = yield apiData("folders", "get")
-        console.log(data);
         yield put(getFolderSuccess(data));
-        
     } catch (error) {
         
     }
