@@ -9,7 +9,6 @@ import {
 import { v4 as uuid } from "uuid"
 
 import Signup from './Signup/index'
-import Profile from "./Profile/index";
 import { ROOT_ROUTE, PROFILE_ROUTE, LOGIN_ROUTE, DASHBOARD_ROUTE } from "../utils/routeConstants"
 import Login from "./Login";
 import DashBoard from "./DashBoard";
@@ -20,12 +19,6 @@ const routesConfig = [
     component: <Signup />,
     exact: true,
     privateRoute: false,
-  },
-  {
-    path: PROFILE_ROUTE,
-    component: <Profile />,
-    exact: true,
-    privateRoute: true,
   },
   {
     path: LOGIN_ROUTE,

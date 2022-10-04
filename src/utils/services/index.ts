@@ -1,5 +1,5 @@
 import { Urls } from "../../asset/dataUrls/index"
-import { CreateBookmarkDataType, MoveBookmarksDataType, ToggleFavoriteBookmarksDataType } from "../../store/reducer/bookmarks/type";
+import { CreateBookmarkDataType, MoveBookmarksDataType, ToggleFavoriteBookmarksDataType } from "../../store/reducer/folder/type";
 import { FolderDataType } from "../../store/reducer/folder/type";
 import { LoginDataType , SignUpDataType } from "../../store/reducer/userAuth/type";
 

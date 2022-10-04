@@ -6,7 +6,7 @@ import { Actions } from "../../../actionTypes";
 import {
   actionTypes,
   ToggleFavoriteBookmarksDataType,
-} from "../../../reducer/bookmarks/type";
+} from "../../../reducer/folder/type";
 
 function* workerSaga(action: actionTypes): any {
   try {

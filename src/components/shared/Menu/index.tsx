@@ -10,7 +10,7 @@ import { Dispatch } from 'redux';
 import { DeleteFolderDataType } from '../../../store/reducer/folder/type';
 import { deleteBookmarkRequest, deleteFolderRequest, moveBookmarkRequest } from '../../../store/actions';
 import { connect } from 'react-redux';
-import { DeleteBookmarkType, MoveBookmarksDataType } from '../../../store/reducer/bookmarks/type';
+import { DeleteBookmarkType, MoveBookmarksDataType } from '../../../store/reducer/folder/type';
 import FolderNestedModal from "../Modlas/Folders";
 
 interface PropsType{

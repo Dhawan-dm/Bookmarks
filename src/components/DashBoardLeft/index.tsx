@@ -44,7 +44,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { getBookmarkRequest, getFolderRequest } from "../../store/actions";
 import LongMenu from "../shared/Menu";
-import { GetBookmarkDataType } from "../../store/reducer/bookmarks/type";
+import { GetBookmarkDataType } from "../../store/reducer/folder/type";
 import Spinner from "../shared/spinner/spinner-1";
 
 interface PropsType {

@@ -3,7 +3,7 @@ import { put, takeEvery } from "redux-saga/effects";
 import { apiData } from "../../../../utils/services";
 import { createBookmarkSuccess } from "../../../actions";
 import { Actions } from "../../../actionTypes";
-import { actionTypes, CreateBookmarkDataType, MoveBookmarksDataType } from "../../../reducer/bookmarks/type";
+import { actionTypes, CreateBookmarkDataType, MoveBookmarksDataType } from "../../../reducer/folder/type";
 
 
 function* workerSaga(action:actionTypes):any{

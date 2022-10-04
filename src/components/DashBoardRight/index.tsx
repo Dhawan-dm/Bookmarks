@@ -27,7 +27,7 @@ import {
   GetBookmarkDataType,
   MoveBookmarksDataType,
   ToggleFavoriteBookmarksDataType,
-} from "../../store/reducer/bookmarks/type";
+} from "../../store/reducer/folder/type";
 import {
   DeleteFolderDataType,
   FolderDataType,
