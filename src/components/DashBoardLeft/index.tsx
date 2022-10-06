@@ -53,6 +53,8 @@ interface PropsType {
   getBookmark: (e:GetBookmarkDataType) =>void;
   handleFav: ()=>void;
   favStatus:boolean;
+  toggleSpinner:boolean;
+  isBookmarksAvailable:(e:boolean)=>void
 }
 
 const DashBoardLeft = (props: PropsType) => {
@@ -60,6 +62,7 @@ const DashBoardLeft = (props: PropsType) => {
   const [addOpen, setaddOpen] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [folderId, setFolderId] = useState("");
+  const [folderSelect, setFolderSelect] = useState("");
   
 
   useEffect(() => {
@@ -94,8 +97,11 @@ const handleFolderClick = (id:string, name:string) =>{
     setToggle(true);
     setFolderId("");
   }
+  setFolderSelect(name);
 }
-
+const handleDeleteClick = (e:boolean)=>{
+  props.isBookmarksAvailable(e);
+}
   return (
     <Wrapper>
       <ContainerTop>
@@ -113,9 +119,9 @@ const handleFolderClick = (id:string, name:string) =>{
           </ContainerMidInputBoxIcon>
           <ContainerMidInputBoxInput placeholder="Search.."></ContainerMidInputBoxInput>
         </ContainerMidInputBox>
-        <ContainerMidFolderBox>
+        <ContainerMidFolderBox view={props.toggleSpinner ? "opaque" : "normal"}>
           {props.folders.length === 0 ?<Spinner component="folders" ></Spinner>:(props.folders.map((folder: any) => {
-            return(<ContainerMidFolderBoxItems tabIndex={1} key={folder.id} onClick={() =>handleFolderClick(folder.id, folder.name)}>
+            return(<ContainerMidFolderBoxItems tabIndex={1} select={folderSelect} name={folder.name} key={folder.id} onClick={() =>handleFolderClick(folder.id, folder.name)}>
               <ContainerMidFolderBoxItemsIconA>
                 <IoMdArrowDropright
                   size={"80%"}
@@ -128,11 +134,11 @@ const handleFolderClick = (id:string, name:string) =>{
                   color={"#5352ED"}
                 ></BsFillFolderFill>
               </ContainerMidFolderBoxItemsIconB>
-              <FolderBox>
+              <FolderBox >
                 <Folder>{folder.name}</Folder>
               </FolderBox>
               <FolderMenuIcon>
-                <LongMenu folderId={folder.id} component={"left"} bookmarkId={""}></LongMenu>
+                <LongMenu folderId={folder.id} component={"left"} bookmarkId={""} bookmarksAvailable={(e:boolean)=>handleDeleteClick(e)}></LongMenu>
               </FolderMenuIcon>
             </ContainerMidFolderBoxItems>
           )}))}
@@ -165,6 +171,7 @@ const handleFolderClick = (id:string, name:string) =>{
       {
       <CreateNestedModal open={addOpen} folderId={""} close={()=>handleModalClose()}></CreateNestedModal>
       }
+      {props.toggleSpinner ? <Spinner component={"folders"} /> : <></>}
     </Wrapper>
   );
 };
@@ -178,6 +185,7 @@ const mapDispaychtoProps = (dispatch: Dispatch) => {
 const mapStatetoProps = (state: any) => {
   return {
     folders: state.folderReducer.folders,
+    toggleSpinner: state.folderReducer.toggleFolderSpinner
   };
 };
 export default connect(mapStatetoProps, mapDispaychtoProps)(DashBoardLeft);

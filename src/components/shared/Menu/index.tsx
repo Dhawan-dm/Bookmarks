@@ -1,32 +1,41 @@
-import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import './style.css'
-import RenameNestedModal from '../Modlas/Rename';
-import { useState } from 'react';
-import { Dispatch } from 'redux';
-import { DeleteFolderDataType } from '../../../store/reducer/folder/type';
-import { deleteBookmarkRequest, deleteFolderRequest, moveBookmarkRequest } from '../../../store/actions';
-import { connect } from 'react-redux';
-import { DeleteBookmarkType, MoveBookmarksDataType } from '../../../store/reducer/folder/type';
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import "./style.css";
+import RenameNestedModal from "../Modlas/Rename";
+import { useState } from "react";
+import { Dispatch } from "redux";
+import { DeleteFolderDataType } from "../../../store/reducer/folder/type";
+import {
+  deleteBookmarkRequest,
+  deleteFolderRequest,
+  moveBookmarkRequest,
+} from "../../../store/actions";
+import { connect } from "react-redux";
+import {
+  DeleteBookmarkType,
+  MoveBookmarksDataType,
+} from "../../../store/reducer/folder/type";
 import FolderNestedModal from "../Modlas/Folders";
 
-interface PropsType{
-    folderId:string,
-    deleteFolder:(e: DeleteFolderDataType)=>void,
-    deleteBookmark:(e: DeleteBookmarkType)=>void,
-    moveBookmark:(e:MoveBookmarksDataType)=>void,
-    component:string,
-    bookmarkId:string,
+interface PropsType {
+  folderId: string;
+  deleteFolder: (e: DeleteFolderDataType) => void;
+  deleteBookmark: (e: DeleteBookmarkType) => void;
+  moveBookmark: (e: MoveBookmarksDataType) => void;
+  component: string;
+  bookmarkId: string;
+  bookmarks: [];
+  bookmarksAvailable:(e:boolean)=>void;
 }
 const ITEM_HEIGHT = 48;
 
-
- const LongMenu = (props:PropsType)=> {
+const LongMenu = (props: PropsType) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [renameOpen, setrenameOpen] = useState(false)
+  const [renameOpen, setrenameOpen] = useState(false);
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,73 +45,90 @@ const ITEM_HEIGHT = 48;
     setAnchorEl(null);
   };
 
-  const handleRenameMove = () =>{
+  const handleRenameMove = () => {
     setrenameOpen(true);
-  }
-  const handleModalClose = () =>{
+  };
+  const handleModalClose = () => {
     setrenameOpen(false);
-  }
-  const handleDelete = () =>{
-    if(props.component === "left")
+  };
+  const handleDelete = () => {
+    if (props.bookmarks.length === 0) {
+        props.bookmarksAvailable(false);
+        props.deleteFolder({ folderId: props.folderId });
+    }
+    else
     {
-      props.deleteFolder({folderId:props.folderId})
+      props.bookmarksAvailable(true);
     }
-    else{
-      props.deleteBookmark({bookmarkId:props.bookmarkId})
-    }
+  };
+
+  const handleBookmarksDelete = () =>{
+    props.deleteBookmark({ bookmarkId: props.bookmarkId });
   }
 
-  const handleFolderInfo = (id:string, name:string)=>{
-    props.moveBookmark({folderId:id, bookmarkId:props.bookmarkId})
-  }
+  const handleFolderInfo = (id: string, name: string) => {
+    props.moveBookmark({ folderId: id, bookmarkId: props.bookmarkId });
+  };
 
   return (
     <div>
-      <IconButton
-        onClick={handleClick}
-      >
+      <IconButton onClick={handleClick}>
         <MoreVertIcon />
       </IconButton>
-      <Menu 
+      <Menu
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
-            borderRadius:'20px'
+            width: "20ch",
+            borderRadius: "20px",
           },
         }}
       >
-          <MenuItem  onClick={()=>{
+        <MenuItem
+          onClick={() => {
             handleClose();
-            handleRenameMove();}}>
-            {props.component ==="left"? <div>Rename</div> : (<div>Move</div>)}
-          </MenuItem>
-          <MenuItem onClick={handleDelete} >
-            Delete
-          </MenuItem>
-        
+            handleRenameMove();
+          }}
+        >
+          {props.component === "left" ? <div>Rename</div> : <div>Move</div>}
+        </MenuItem>
+        <MenuItem onClick={props.component === "left"?handleDelete:handleBookmarksDelete}>Delete</MenuItem>
       </Menu>
-      {props.component === "left"?
-        <RenameNestedModal open={renameOpen} folderId={props.folderId} close={()=>handleModalClose()}></RenameNestedModal>:
+      {props.component === "left" ? (
+        <RenameNestedModal
+          open={renameOpen}
+          folderId={props.folderId}
+          close={() => handleModalClose()}
+        ></RenameNestedModal>
+      ) : (
         <FolderNestedModal
-        open={renameOpen}
-        getFolderInfo={(id: string, name: string) => handleFolderInfo(id, name)}
-        close={() => handleModalClose()}
-      ></FolderNestedModal>
-      }
+          open={renameOpen}
+          getFolderInfo={(id: string, name: string) =>
+            handleFolderInfo(id, name)
+          }
+          close={() => handleModalClose()}
+        ></FolderNestedModal>
+      )}
     </div>
   );
-}
+};
 
 const mapDispaychtoProps = (dispatch: Dispatch) => {
   return {
     deleteFolder: (e: DeleteFolderDataType) => dispatch(deleteFolderRequest(e)),
-    deleteBookmark: (e:DeleteBookmarkType) => dispatch(deleteBookmarkRequest(e)),
-    moveBookmark:(e:MoveBookmarksDataType) => dispatch(moveBookmarkRequest(e))
+    deleteBookmark: (e: DeleteBookmarkType) =>
+      dispatch(deleteBookmarkRequest(e)),
+    moveBookmark: (e: MoveBookmarksDataType) =>
+      dispatch(moveBookmarkRequest(e)),
   };
 };
 
-export default connect(null, mapDispaychtoProps)(LongMenu)
+const mapStatetoProps = (state: any) => {
+  return {
+    bookmarks: state.folderReducer.bookmarks,
+  };
+};
+export default connect(mapStatetoProps, mapDispaychtoProps)(LongMenu);

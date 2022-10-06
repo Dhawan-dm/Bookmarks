@@ -1,7 +1,7 @@
 import { put, takeEvery } from "redux-saga/effects";
 
 import { apiData } from "../../../../utils/services";
-import { createBookmarkSuccess, moveBookmarkSuccess, toggleFavoriteSuccess } from "../../../actions";
+import { toggleFavoriteSuccess } from "../../../actions";
 import { Actions } from "../../../actionTypes";
 import {
   actionTypes,
@@ -10,8 +10,6 @@ import {
 
 function* workerSaga(action: actionTypes): any {
   try {
-    console.log(action.payload);
-    
     let data = yield apiData(
       "toggle-favorite",
       "PUT",

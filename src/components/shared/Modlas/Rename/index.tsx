@@ -41,7 +41,6 @@ interface PropsType {
   renameFolder: (e: RenameFolderDataType) => void;
   folderId: string;
   close: () => void;
-  toggleRenameSpinner:boolean
 }
 
 const RenameNestedModal = (props: PropsType) => {
@@ -53,7 +52,6 @@ const RenameNestedModal = (props: PropsType) => {
 
   const handleClose = () => {
     props.close();
-    console.log("clicked");
   };
   const handleClick = () => {
     props.renameFolder({ folderId: props.folderId, name: value });
@@ -63,7 +61,7 @@ const RenameNestedModal = (props: PropsType) => {
 
   return (
     <div>
-      <Modal open={!props.toggleRenameSpinner?props.open:true} >
+      <Modal open={props.open} >
         <Box sx={{ ...style, width: "20%", borderRadius: "20px" }}>
           <Wrapper>
             <HeadingBox>
@@ -84,8 +82,7 @@ const RenameNestedModal = (props: PropsType) => {
                 ></ContentBoxInput>
                 <ContentBoxBtnBox>
                   <ContentBoxBtn onClick={handleClick}>
-                  {props.toggleRenameSpinner?<Spinner2 component="dashboard"></Spinner2>
-                    :<div>Rename</div>}
+                    <div>Rename</div>
                   </ContentBoxBtn>
                 </ContentBoxBtnBox>
               </ContentBox>
@@ -103,10 +100,5 @@ const mapDispatchtoProps = (dispatch: Dispatch) => {
   };
 };
 
-const mapStatetoProps = (state: any) => {
-  return {
-    toggleRenameSpinner: state.folderReducer.toggleRenameSpinner,
-  };
-};
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(RenameNestedModal);
+export default connect(null, mapDispatchtoProps)(RenameNestedModal);

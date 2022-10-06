@@ -1,5 +1,5 @@
 import { Actions } from '../actionTypes/index'
-import { BookmarkDataType, CreateBookmarkDataType, DeleteBookmarkType, GetBookmarkDataType, MoveBookmarksDataType, ToggleFavoriteBookmarksDataType } from '../reducer/folder/type'
+import { BookmarkDataType, DeleteBookmarkType, GetBookmarkDataType, MoveBookmarksDataType, ToggleFavoriteBookmarksDataType } from '../reducer/folder/type'
 import { FolderDataType, RenameFolderDataType } from '../reducer/folder/type'
 import { LoginDataType, SignUpDataType } from '../reducer/userAuth/type'
 

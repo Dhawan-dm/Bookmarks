@@ -9,7 +9,7 @@ import {
 import { v4 as uuid } from "uuid"
 
 import Signup from './Signup/index'
-import { ROOT_ROUTE, PROFILE_ROUTE, LOGIN_ROUTE, DASHBOARD_ROUTE } from "../utils/routeConstants"
+import { ROOT_ROUTE, LOGIN_ROUTE, DASHBOARD_ROUTE } from "../utils/routeConstants"
 import Login from "./Login";
 import DashBoard from "./DashBoard";
 

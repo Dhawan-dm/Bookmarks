@@ -1,5 +1,3 @@
-import { stat } from 'fs'
-import { Action } from 'history'
 import { Actions } from '../../actionTypes'
 import { actionTypes, FolderArray } from './type'
 
@@ -20,6 +18,7 @@ const folderReducer = (state = initialState, action: actionTypes) => {
       return {
         ...state,
         toggleSpinner: true,
+        
       }
     }
     case Actions.ADD_FOLDER_SUCCESS: {
@@ -37,7 +36,12 @@ const folderReducer = (state = initialState, action: actionTypes) => {
     case Actions.GET_FOLDER_SUCCESS: {
       return { ...state, folders: action.payload, toggleFolderSpinner: false }
     }
-
+    case Actions.DELETE_FOLDER_REQUEST:{
+      return{
+        ...state,
+        toggleFolderSpinner:true
+      }
+    }
     case Actions.DELETE_FOLDER_SUCCESS: {
       return {
         ...state,
@@ -46,18 +50,17 @@ const folderReducer = (state = initialState, action: actionTypes) => {
             return folder
           }
         }),
+        toggleFolderSpinner:false
       }
     }
-
+    
     case Actions.RENAME_FOLDER_REQUEST: {
       return {
         ...state,
-        toggleRenameSpinner: true,
       }
     }
-
+    
     case Actions.RENAME_FOLDER_SUCCESS: {
-      console.log(action.payload)
       return {
         ...state,
         folders: state.folders.map((folder: any) => {
@@ -66,7 +69,6 @@ const folderReducer = (state = initialState, action: actionTypes) => {
           }
           return folder
         }),
-        toggleRenameSpinner: false,
       }
     }
 
@@ -131,7 +133,7 @@ const folderReducer = (state = initialState, action: actionTypes) => {
       return {
         ...state,
         bookmarks: state.bookmarks.filter(
-          (bookmark) => bookmark.id != action.payload.bookmarkId,
+          (bookmark) => bookmark.id !== action.payload.bookmarkId,
         ),
         toggleBookmarkSpinner: false,
       }

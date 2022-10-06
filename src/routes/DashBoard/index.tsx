@@ -13,6 +13,7 @@ interface PropsType{
 const DashBoard = (props:PropsType) => {
   const [id, setId] = useState("");
   const [getFav, setGetFav] = useState(false);
+  const [bookmarksAvailable, setBookmarksAvailable] = useState(false);
   
   useEffect(() => {
     props.getMe();
@@ -28,10 +29,17 @@ const DashBoard = (props:PropsType) => {
     
   }
 
+  const handleCantDelete = (e:boolean) =>{
+    setBookmarksAvailable(e);
+    setTimeout(() => {
+      setBookmarksAvailable(false);
+    }, 3000);
+  }
+
   return (
     <Wrapper>
-      <DashBoardLeft handleFav={()=>handleFavorite()} favStatus={getFav} ></DashBoardLeft>
-      <DashBoardRight folderId={id} showFav={getFav} ></DashBoardRight>
+      <DashBoardLeft handleFav={()=>handleFavorite()} favStatus={getFav} isBookmarksAvailable={(e:boolean)=>handleCantDelete(e)}></DashBoardLeft>
+      <DashBoardRight folderId={id} showFav={getFav} bookmarksPresent={bookmarksAvailable}></DashBoardRight>
     </Wrapper>
   )
 }

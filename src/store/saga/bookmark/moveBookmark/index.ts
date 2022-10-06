@@ -1,7 +1,7 @@
 import { put, takeEvery } from "redux-saga/effects";
 
 import { apiData } from "../../../../utils/services";
-import { createBookmarkSuccess, moveBookmarkSuccess } from "../../../actions";
+import {  moveBookmarkSuccess } from "../../../actions";
 import { Actions } from "../../../actionTypes";
 import {
   actionTypes,

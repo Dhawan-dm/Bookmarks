@@ -8,6 +8,9 @@ import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsFolder } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaGripHorizontal } from "react-icons/fa";
+import { GoAlert } from "react-icons/go";
+import { BsListUl } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 import {
   addFavourite,
@@ -15,7 +18,6 @@ import {
   createBookmarkRequest,
   deleteBookmarkRequest,
   deleteFavourite,
-  deleteFolderRequest,
   getBookmarkRequest,
   getFolderRequest,
   moveBookmarkRequest,
@@ -83,6 +85,8 @@ import {
   ProfileBox,
   ProfileDp,
   ProfileInfoBox,
+  ToggleViewBox,
+  ToggleViewIconBoxA,
   Url,
   UrlBox,
   UrlHeading,
@@ -93,6 +97,7 @@ import {
   VerticalIcon1,
   Wrapper,
 } from "./style";
+import { SignUpDataType } from "../../store/reducer/userAuth/type";
 
 interface PropsType {
   addFolder: (e: FolderDataType) => void;
@@ -104,13 +109,14 @@ interface PropsType {
   toggleFavorite: (e: ToggleFavoriteBookmarksDataType) => void;
   bookmarks: [];
   folderId: string;
-  users: [];
+  users: SignUpDataType;
   toggleSpinner: boolean;
   showFav: boolean;
   favBookmarks: [];
   folderName: string;
   moveBookmark: (e: MoveBookmarksDataType) => void;
   deleteBookmark: (e: DeleteBookmarkType) => void;
+  bookmarksPresent:boolean
 }
 
 const DashBoardRight = (props: PropsType) => {
@@ -120,9 +126,9 @@ const DashBoardRight = (props: PropsType) => {
   const [folderName, setFolderName] = useState("");
   const [folderId, setFolderId] = useState("");
   const [addOpen, setaddOpen] = useState(false);
-  const [layout, setLayout] = useState(false);
   const [moveCall, setMoveCall] = useState(false);
   const [bookmarkId, setBookmarkId] = useState("");
+  const [layout, setLayout] = useState(false);
 
   if (folderName != props.folderName) {
     setFolder(props.folderName);
@@ -141,7 +147,6 @@ const DashBoardRight = (props: PropsType) => {
       });
       setBookmarkName("");
       setBookmark("");
-      setFolder("");
       console.log(folderId);
     }
   };
@@ -184,19 +189,20 @@ const DashBoardRight = (props: PropsType) => {
     props.toggleFavorite({ bookmarkId: bookmark.id });
   };
 
+  const handleView = () =>{
+    setLayout(!layout);
+  }
+
   return (
     <Wrapper>
       <NavBox>
         <ProfileBox>
           <ProfileDp></ProfileDp>
-          {props.users.map((user: any) => {
-            return (
-              <ProfileInfoBox key={user.id}>
-                <UserName>{user.name}</UserName>
-                <UserMail>{user.email}</UserMail>
+          
+              <ProfileInfoBox>
+                <UserName>{props.users.name}</UserName>
+                <UserMail>{props.users.email}</UserMail>
               </ProfileInfoBox>
-            );
-          })}
         </ProfileBox>
       </NavBox>
       <ContainerTop>
@@ -215,6 +221,7 @@ const DashBoardRight = (props: PropsType) => {
                     setBookmark(e.currentTarget.value)
                   }
                   value={bookmarkValue}
+                  placeholder="Bookmark url"
                 ></UrlInput>
               </UrlInputBox>
             </UrlBox>
@@ -233,6 +240,7 @@ const DashBoardRight = (props: PropsType) => {
                     setBookmarkName(e.currentTarget.value)
                   }
                   value={bookmarkName}
+                  placeholder={"Bookmark name"}
                 ></FolderInput>
                 <FolderInput
                   onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -240,9 +248,10 @@ const DashBoardRight = (props: PropsType) => {
                   }
                   onClick={handleOpen}
                   value={folderValue}
+                  placeholder={"Folder name"}
                 ></FolderInput>
                 <FolderBtnBox>
-                  <FolderBtn onClick={handleSave}>Save</FolderBtn>
+                  <FolderBtn onClick={handleSave} disabled={!bookmarkValue}>Save</FolderBtn>
                 </FolderBtnBox>
               </FolderInputBox>
             </FolderBox>
@@ -266,21 +275,37 @@ const DashBoardRight = (props: PropsType) => {
               <AddFolder>ADD LINK</AddFolder>
             </AddFolderBox>
           </ContainerMidAddLinkBox>
+          <ToggleViewBox onClick={handleView}>
+                  {layout?(
+                    <><ToggleViewIconBoxA select = {true}><FaGripHorizontal color={"#FFFFFF"} size={"50%"}></FaGripHorizontal></ToggleViewIconBoxA>
+                    <ToggleViewIconBoxA select={false}><BsListUl size={"50%"} color={"#77757F"}></BsListUl></ToggleViewIconBoxA></>
+                  ):(
+                    <><ToggleViewIconBoxA select = {false}><FaGripHorizontal color={"#77757F"} size={"50%"}></FaGripHorizontal></ToggleViewIconBoxA>
+                    <ToggleViewIconBoxA select = {true}><BsListUl size={"50%"} color={"#FFFFFF"}></BsListUl></ToggleViewIconBoxA></>
+                  )}
+          </ToggleViewBox>
         </ContainerMidContentBox>
       </ContainerMid>
       <ContainerBottom view={props.toggleSpinner ? "opaque" : "normal"}>
         <ContainerBottomBox>
-          {props.bookmarks.length === 0 && !props.showFav ? (
+          {props.bookmarksPresent || (props.bookmarks.length === 0 && !props.showFav) ? (
             <ContainerNoBookmark >
               <ContainerNoBookmarkIconBox>
+                {!props.bookmarksPresent?
                 <BsJournalBookmarkFill
                   size={"70%"}
                   color={"#5352ED"}
-                ></BsJournalBookmarkFill>
+                ></BsJournalBookmarkFill>:
+                <GoAlert
+                  size={"70%"}
+                  color={"#5352ED"}>
+                  </GoAlert>}
               </ContainerNoBookmarkIconBox>
               <ContainerNoBookmarkDetails>
                 <ContainerNoBookmarkHead>
-                  <div>Click on folder with bookmark</div>
+                {!props.bookmarksPresent?
+                  <div>Click on folder with bookmark</div>:
+                  <div>Can't delete folder with bookmarks</div>}
                 </ContainerNoBookmarkHead>
                 <ContainerNoBookmarkTextBox>
                   <ContainerNoBookmarkText>
@@ -311,6 +336,7 @@ const DashBoardRight = (props: PropsType) => {
                           folderId={props.folderId}
                           component={"right"}
                           bookmarkId={bookmark.id}
+                          bookmarksAvailable={(e:boolean)=>""}
                         ></LongMenu>
                       </BookmarkIcon>
                     </InfoTop>
@@ -401,6 +427,7 @@ const DashBoardRight = (props: PropsType) => {
                           folderId={props.folderId}
                           component={"right"}
                           bookmarkId={bookmark.id}
+                          bookmarksAvailable={(e:boolean)=>""}
                         ></LongMenu>
                       </BookmarkIcon>
                     </InfoTop>

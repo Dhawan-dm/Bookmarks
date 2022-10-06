@@ -2,7 +2,11 @@ import { Actions } from "../../actionTypes";
 import { actionTypes, UserArray } from "./type";
 
 const initialState: UserArray = {
-  users: [],
+  users: {
+    name:"",
+    email:"",
+    password:""
+  }
 };
 
 const authReducer = (state = initialState, action: actionTypes) => {
@@ -10,7 +14,7 @@ const authReducer = (state = initialState, action: actionTypes) => {
     case Actions.GET_ME_SUCCESS: {
       console.log(action.payload);
 
-      return { ...state, users: [...state.users, action.payload] };
+      return { ...state, users:action.payload}
     }
     default:
       return state;

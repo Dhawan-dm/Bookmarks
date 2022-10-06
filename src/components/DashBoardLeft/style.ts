@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import { constants } from "zlib";
 
+interface FolderType {
+    select:string;
+    name:string;
+}
+
+interface ContainerMidType{
+    view:string
+}
+
 export const Wrapper = styled.div`
 display:flex;
 flex-direction:column;
@@ -29,6 +38,7 @@ export const ContainerMid = styled.div`
 display:flex;
 flex-direction:column;
 height:65%;
+
 `
 export const ContainerMidInputBox = styled.div`
 display:flex;
@@ -57,6 +67,7 @@ border:none;
 export const ContainerMidFolderBox = styled.div`
 height:65%;
 margin:9% 4%;
+opacity:${(props:ContainerMidType)=>props.view==="opaque"?"0.4":"1"};
 overflow-y:scroll;
 &::-webkit-scrollbar{
     display:none;
@@ -67,6 +78,7 @@ export const ContainerMidFolderBoxItems = styled.div`
 height:12%;
 display:flex;
 border-radius:10px;
+background-color:${(props:FolderType)=>props.select === props.name?"#E4E3FF":"#FFFFFF"};
 &:hover{
     background-color:#E4E3FF;
 }

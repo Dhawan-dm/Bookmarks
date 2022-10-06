@@ -17,6 +17,10 @@ interface BookmarksViewPropsType{
   mode:string
 }
 
+interface ToggleBox{
+  select:boolean;
+}
+
 export const Wrapper = styled.div`
 display:flex;
 flex-direction:column;
@@ -138,6 +142,10 @@ padding:0px 30px;
 &:focus {
     outline: none;
   }
+&::placeholder{
+  color:#E6E2EA;
+  font-size:11px;
+}  
 `
 export const FolderBox = styled.div`
 width:80%;
@@ -180,6 +188,10 @@ padding:0px 30px;
 &:focus {
     outline: none;
   }
+  &::placeholder{
+    color:#E6E2EA;
+    font-size:11px;
+  }  
 `
 export const FolderBtnBox = styled.div`
 display:flex;
@@ -250,7 +262,7 @@ border-radius:20px;
 
 export const ContainerMidAddLinkBox = styled.div`
 display:flex;
-width:60%;
+width:40%;
 height:100%;
 justify-content:end;
 align-items:center;
@@ -258,7 +270,7 @@ align-items:center;
 export const AddFolderBox = styled.div`
 display:flex;
 height:70%;
-width:25%;
+width:55%;
 align-self:center;
 border:2px solid #5352ED;
 border-radius:15px;
@@ -285,6 +297,23 @@ font-size:15px;
 font-weight:600;
 `
 
+export const ToggleViewBox = styled.div`
+display:flex;
+height:100%;
+width:20%;
+justify-content:end;
+align-items:center;
+`
+export const ToggleViewIconBoxA = styled.div`
+display:flex;
+height:60%;
+width:20%;
+justify-content:center;
+align-items:center;
+border-radius:5px;
+background-color:${(props:ToggleBox)=>props.select?"#5352ED":"#E6E2EA"};
+`
+
 export const ContainerBottom = styled.div`
 display:flex;
 height:51%;
@@ -308,10 +337,10 @@ overflow:scroll;
 export const ContainerNoBookmark = styled.div`
 display:flex;
 position:relative;
-top:25%;
+top:10%;
 left:1%;
 right:1%;
-bottom:25%;
+bottom:10%;
 flex-direction:column;
 width:100%;
 height:50%;

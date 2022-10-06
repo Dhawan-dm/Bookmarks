@@ -1,5 +1,5 @@
 import { NavigateFunction } from "react-router-dom";
-import { loginRequest, signUpRequest } from "../../actions";
+import { getMeRequest, loginRequest, signUpRequest } from "../../actions";
 
 export interface LoginDataType{
     email:string,
@@ -14,7 +14,7 @@ export interface SignUpDataType {
 }
 
 export interface UserArray{
-    users:SignUpDataType[]
+    users:SignUpDataType
 }
 
 export type actionTypes = ReturnType<typeof signUpRequest | typeof loginRequest>
